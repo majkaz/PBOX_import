@@ -1,3 +1,9 @@
+#!/bin/bash
+# 
+# is this a test? <- start as "PBOX_conflate.sh test"
+testing="$@"
+
+
 # get newest POST_SCHRANKY_??????.csv file
 	files=( POST_SCHRANKY_*.csv )
 	new=${files[${#files[@]}-1]}
@@ -11,9 +17,9 @@ awk -F";" 'NR==1{h=$0;next}!seen[$1]++{f="Depo_"$1".csv"; print h > f}{print >> 
 # prepare the ugly hack for disused:amenity=post_box
 # download all disabled post boxes in Czechia
 curl https://overpass-api.de/api/interpreter?data=area%5B%22name%22%3D%22%C4%8Cesko%22%5D%3Bnode%5B%22disused%3Aamenity%22%3D%22post%5Fbox%22%5D%28area%29%3Bout%20meta%3B%0A | 		
-	# ugly hack, change disused:amenity to amenity, 
-	# add alternate tag because of the source (will be removed from the new one)
-	# remove first 4 rows
+# ugly hack, change disused:amenity to amenity, 
+# add alternate tag because of the source (will be removed from the new one)
+# remove first 4 rows
 	sed 's/<tag k="disused:amenity/<tag k="old_disused:amenity" v="post_box"\/> <tag k="amenity/g;1,4d' > all.osm
 	# get temp.osm
 	touch temp.osm
@@ -23,7 +29,6 @@ curl https://overpass-api.de/api/interpreter?data=area%5B%22name%22%3D%22%C4%8Ce
 	do
 		tmp=${f#*_}
 		depo=${tmp%.*}
-		./p.py $f geojson "Depo_"$depo
 		# has source empty coordinates?
 		empty=$(awk -F";" 'NR>1 && !$5 {print $1;exit;}' $f)
 
@@ -32,13 +37,27 @@ curl https://overpass-api.de/api/interpreter?data=area%5B%22name%22%3D%22%C4%8Ce
 		echo
 
 		# create conflate profile, from PBOX.profile as the master one
-		prfname="Depo_"$depo".profile.py"
-		cp PBOX.profile $prfname
-		echo "# file $new; depo nr. $depo" >> $prfname
-		echo "source = 'CP:$yyyymm'" >> $prfname
 		
 		if [ "$empty" == "$depo" ]
 		then 
+			# is this a test?, if yes, have we got allready empty coords depo
+			if [ "$testing" == "test" ]
+			then
+				if [ "$gotempty" = 1 ] 
+				then
+					echo "allready got empty"
+					rm "Depo_"$depo".csv"
+					continue
+				else
+					echo "empty"
+					gotempty=1
+				fi
+			fi
+			./p.py $f geojson "Depo_"$depo
+			prfname="Depo_"$depo".profile.py"
+			cp PBOX.profile $prfname
+			echo "# file $new; depo nr. $depo" >> $prfname
+			echo "source = 'CP:$yyyymm'" >> $prfname
 			echo "záznamy bez souřadnic, nespárované schránky se nebudou rušit"
 			# file has empty coordinates -> post boxes are missing, no retagging
 			echo "# no retagging, coordinates missing in source" >> $prfname
@@ -47,13 +66,31 @@ curl https://overpass-api.de/api/interpreter?data=area%5B%22name%22%3D%22%C4%8Ce
 			# reduced search area around post_boxes to avoid wrong matching
 			echo "max_distance = 200" >> $prfname
 		else 
+			# is this a test?, if yes, have we got allready all coords depo
+			if [ "$testing" == "test" ]
+			then
+				if [ "$gotnonempty" = 1 ] 
+				then
+					echo "allready got non empty"
+					rm "Depo_"$depo".csv"
+					continue
+				else
+					gotnonempty=1
+					echo "non empty"
+				fi
+			fi
+			./p.py $f geojson "Depo_"$depo
+			prfname="Depo_"$depo".profile.py"
+			cp PBOX.profile $prfname
+			echo "# file $new; depo nr. $depo" >> $prfname
+			echo "source = 'CP:$yyyymm'" >> $prfname
 			echo "všechny záznamy mají souřadnice"
 			echo "disablované schránky jsou přetagovány na 'amenity:disused=post_box'"
 			echo "schránky se načítají jen s ref"
 			echo "načítají se i disablované schránky"
 			# all coordinates included, geojson has all post_boxes 
 			# all post_boxes should be in area, get post boxes with ref
-			echo "query='[amenity=post_box][ref~$depo.*]'" >> $prfname
+			echo "query='[amenity=post_box][ref~\"$depo.*\"]'" >> $prfname
 			# increase search area around post_boxes to avoid wrong matching
 			echo "max_distance = 1500" >> $prfname
 			# not found might be only disabled for some time, do not delete, retag
