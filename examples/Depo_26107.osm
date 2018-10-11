@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<osm generator="OSM Conflator 1.4.0" version="0.6">
+  <changeset>
+    <tag k="source" v="CP:201810"/>
+    <tag k="created_by" v="OSM Conflator 1.4.0"/>
+    <tag k="type" v="import"/>
+  </changeset>
+  <node id="5625244400" version="1" lat="49.5980626" lon="13.9889297" action="modify">
+    <tag k="amenity" v="post_box"/>
+    <tag k="collection_times" v="Mo-Fr 10:00"/>
+    <tag k="operator" v="Česká pošta, s.p."/>
+    <tag k="ref" v="26107:97"/>
+    <tag k="source" v="CP:201810"/>
+  </node>
+  <node id="5581151962" version="2" lat="49.6509653" lon="14.3601738" action="modify">
+    <tag k="amenity" v="post_box"/>
+    <tag k="collection_times" v="Mo-Fr 08:40"/>
+    <tag k="operator" v="Česká pošta, s.p."/>
+    <tag k="ref" v="26107:221"/>
+    <tag k="source" v="CP:201810"/>
+  </node>
+  <node id="5589059126" version="1" lat="49.6481019" lon="14.3467981" action="modify">
+    <tag k="amenity" v="post_box"/>
+    <tag k="collection_times" v="Mo-Fr 08:20"/>
+    <tag k="operator" v="Česká pošta, s.p."/>
+    <tag k="ref" v="26107:222"/>
+    <tag k="source" v="CP:201810"/>
+  </node>
+  <node id="5581151950" version="1" lat="49.636445" lon="14.3113539" action="modify">
+    <tag k="amenity" v="post_box"/>
+    <tag k="collection_times" v="Mo-Fr 10:00"/>
+    <tag k="operator" v="Česká pošta, s.p."/>
+    <tag k="ref" v="26107:293"/>
+    <tag k="source" v="CP:201810"/>
+  </node>
+  <node id="5584998872" version="1" lat="49.5971131" lon="13.9912149" action="modify">
+    <tag k="amenity" v="post_box"/>
+    <tag k="collection_times" v="Mo-Fr 09:00"/>
+    <tag k="operator" v="Česká pošta, s.p."/>
+    <tag k="ref" v="26107:398"/>
+    <tag k="source" v="CP:201810"/>
+  </node>
+  <node id="5589059125" version="1" lat="49.7111256" lon="14.3691607" action="modify">
+    <tag k="amenity" v="post_box"/>
+    <tag k="collection_times" v="Mo-Fr 11:00"/>
+    <tag k="operator" v="Česká pošta, s.p."/>
+    <tag k="ref" v="26107:229"/>
+    <tag k="source" v="CP:201810"/>
+  </node>
+</osm>

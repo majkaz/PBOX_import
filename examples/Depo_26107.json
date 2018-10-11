@@ -1,0 +1,173 @@
+{
+  "features": [
+    {
+      "geometry": {
+        "coordinates": [
+          13.9889297,
+          49.5980626
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "action": "modify",
+        "marker-color": "#0000ee",
+        "osm_id": 5625244400,
+        "osm_type": "node",
+        "ref_coords": [
+          13.9880087,
+          49.5986636
+        ],
+        "ref_distance": 94.3,
+        "ref_id": "26107:398",
+        "ref_unused_tags.ref": "26107:398",
+        "tags.amenity": "post_box",
+        "tags.operator": "Česká pošta, s.p.",
+        "tags.ref": "26107:97",
+        "tags_changed.collection_times": "Mo-Fr 09:00 -> Mo-Fr 10:00",
+        "tags_new.source": "CP:201810"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          14.3601738,
+          49.6509653
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "action": "modify",
+        "marker-color": "#0000ee",
+        "osm_id": 5581151962,
+        "osm_type": "node",
+        "ref_coords": [
+          14.3589963,
+          49.6514385
+        ],
+        "ref_distance": 99.9,
+        "ref_id": "26107:222",
+        "ref_unused_tags.ref": "26107:222",
+        "tags.amenity": "post_box",
+        "tags.operator": "Česká pošta, s.p.",
+        "tags.ref": "26107:221",
+        "tags_changed.collection_times": "Mo-Fr 08:20 -> Mo-Fr 08:40",
+        "tags_new.source": "CP:201810"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          14.3467981,
+          49.6481019
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "action": "modify",
+        "marker-color": "#0000ee",
+        "osm_id": 5589059126,
+        "osm_type": "node",
+        "ref_coords": [
+          14.3452133,
+          49.6487247
+        ],
+        "ref_distance": 133.6,
+        "ref_id": "26107:221",
+        "ref_unused_tags.ref": "26107:221",
+        "tags.amenity": "post_box",
+        "tags.operator": "Česká pošta, s.p.",
+        "tags.ref": "26107:222",
+        "tags_changed.collection_times": "Mo-Fr 08:40 -> Mo-Fr 08:20",
+        "tags_new.source": "CP:201810"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          14.3113539,
+          49.636445
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "action": "modify",
+        "marker-color": "#0000ee",
+        "osm_id": 5581151950,
+        "osm_type": "node",
+        "ref_coords": [
+          14.3094348,
+          49.6375975
+        ],
+        "ref_distance": 188.7,
+        "ref_id": "26107:302",
+        "ref_unused_tags.ref": "26107:302",
+        "tags.amenity": "post_box",
+        "tags.operator": "Česká pošta, s.p.",
+        "tags.ref": "26107:293",
+        "tags_changed.collection_times": "Mo-Fr 11:00 -> Mo-Fr 10:00",
+        "tags_new.source": "CP:201810"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          13.9912149,
+          49.5971131
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "action": "modify",
+        "marker-color": "#0000ee",
+        "osm_id": 5584998872,
+        "osm_type": "node",
+        "ref_coords": [
+          13.9854522,
+          49.594097
+        ],
+        "ref_distance": 534.4,
+        "ref_id": "26107:97",
+        "ref_unused_tags.ref": "26107:97",
+        "tags.amenity": "post_box",
+        "tags.operator": "Česká pošta, s.p.",
+        "tags.ref": "26107:398",
+        "tags_changed.collection_times": "Mo-Fr 10:00 -> Mo-Fr 09:00",
+        "tags_new.source": "CP:201810"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          14.3691607,
+          49.7111256
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "action": "modify",
+        "marker-color": "#0000ee",
+        "osm_id": 5589059125,
+        "osm_type": "node",
+        "ref_coords": [
+          14.3826589,
+          49.7072065
+        ],
+        "ref_distance": 1065.1,
+        "ref_id": "26107:228",
+        "ref_unused_tags.ref": "26107:228",
+        "tags.amenity": "post_box",
+        "tags.operator": "Česká pošta, s.p.",
+        "tags.ref": "26107:229",
+        "tags_changed.collection_times": "Mo-Fr 11:45 -> Mo-Fr 11:00",
+        "tags_new.source": "CP:201810"
+      },
+      "type": "Feature"
+    }
+  ],
+  "type": "FeatureCollection"
+}

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<osm generator="OSM Conflator 1.4.0" version="0.6">
+  <changeset>
+    <tag k="source" v="CP:201810"/>
+    <tag k="created_by" v="OSM Conflator 1.4.0"/>
+    <tag k="type" v="import"/>
+  </changeset>
+  <node id="322919531" version="3" lat="50.078133" lon="14.6035073" action="modify">
+    <tag k="amenity" v="post_box"/>
+    <tag k="operator" v="Česká pošta, s.p."/>
+    <tag k="collection_times" v="Mo-Fr 16:00"/>
+    <tag k="ref" v="10003:8"/>
+    <tag k="source" v="CP:201810"/>
+  </node>
+</osm>

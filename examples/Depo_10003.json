@@ -1,0 +1,32 @@
+{
+  "features": [
+    {
+      "geometry": {
+        "coordinates": [
+          14.6035073,
+          50.078133
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "action": "modify",
+        "marker-color": "#0000ee",
+        "osm_id": 322919531,
+        "osm_type": "node",
+        "ref_coords": [
+          14.6034375,
+          50.0782469
+        ],
+        "ref_distance": 13.6,
+        "ref_id": "10003:8",
+        "tags.amenity": "post_box",
+        "tags.operator": "Česká pošta, s.p.",
+        "tags_new.collection_times": "Mo-Fr 16:00",
+        "tags_new.ref": "10003:8",
+        "tags_new.source": "CP:201810"
+      },
+      "type": "Feature"
+    }
+  ],
+  "type": "FeatureCollection"
+}
