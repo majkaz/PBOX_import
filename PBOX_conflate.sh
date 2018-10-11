@@ -6,11 +6,11 @@
 	yyyymm=${tmp%.*}
 
 # split into separate files
-#awk -F";" 'NR==1{h=$0;next}!seen[$1]++{f="Depo_"$1".csv"; print h > f}{print >> f}' $new
+awk -F";" 'NR==1{h=$0;next}!seen[$1]++{f="Depo_"$1".csv"; print h > f}{print >> f}' $new
 
 # prepare the ugly hack for disused:amenity=post_box
 # download all disabled post boxes in Czechia
-curl  https://overpass-api.de/api/interpreter?data=area%5B%22name%22%3D%22%C4%8Cesko%22%5D%3Bnode%5B%22disused%3Aamenity%22%3D%22post%5Fbox%22%5D%28area%29%3Bout%20meta%3B%0A | 		
+curl https://overpass-api.de/api/interpreter?data=area%5B%22name%22%3D%22%C4%8Cesko%22%5D%3Bnode%5B%22disused%3Aamenity%22%3D%22post%5Fbox%22%5D%28area%29%3Bout%20meta%3B%0A | 		
 	# ugly hack, change disused:amenity to amenity, 
 	# add alternate tag because of the source (will be removed from the new one)
 	# remove first 4 rows
