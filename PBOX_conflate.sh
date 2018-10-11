@@ -32,9 +32,6 @@ curl https://overpass-api.de/api/interpreter?data=area%5B%22name%22%3D%22%C4%8Ce
 		# has source empty coordinates?
 		empty=$(awk -F";" 'NR>1 && !$5 {print $1;exit;}' $f)
 
-		echo
-		echo "Zpracovává se "$depo
-		echo
 
 		# create conflate profile, from PBOX.profile as the master one
 		
@@ -45,7 +42,6 @@ curl https://overpass-api.de/api/interpreter?data=area%5B%22name%22%3D%22%C4%8Ce
 			then
 				if [ "$gotempty" = 1 ] 
 				then
-					echo "allready got empty"
 					rm "Depo_"$depo".csv"
 					continue
 				else
@@ -53,6 +49,9 @@ curl https://overpass-api.de/api/interpreter?data=area%5B%22name%22%3D%22%C4%8Ce
 					gotempty=1
 				fi
 			fi
+			echo
+			echo "Zpracovává se "$depo
+			echo
 			./p.py $f geojson "Depo_"$depo
 			prfname="Depo_"$depo".profile.py"
 			cp PBOX.profile $prfname
@@ -71,7 +70,6 @@ curl https://overpass-api.de/api/interpreter?data=area%5B%22name%22%3D%22%C4%8Ce
 			then
 				if [ "$gotnonempty" = 1 ] 
 				then
-					echo "allready got non empty"
 					rm "Depo_"$depo".csv"
 					continue
 				else
@@ -79,6 +77,9 @@ curl https://overpass-api.de/api/interpreter?data=area%5B%22name%22%3D%22%C4%8Ce
 					echo "non empty"
 				fi
 			fi
+			echo
+			echo "Zpracovává se "$depo
+			echo
 			./p.py $f geojson "Depo_"$depo
 			prfname="Depo_"$depo".profile.py"
 			cp PBOX.profile $prfname
@@ -112,6 +113,7 @@ curl https://overpass-api.de/api/interpreter?data=area%5B%22name%22%3D%22%C4%8Ce
 		echo
 		echo "Znovu, včetně vypnutých schránek"
 		
+		
 		# rm temp file
 		rm temp.osm
 		
@@ -119,10 +121,24 @@ curl https://overpass-api.de/api/interpreter?data=area%5B%22name%22%3D%22%C4%8Ce
 		sed 's/<\/osm>//' "Depo_"$depo"_qr.osm" | 
 		# combine both files
 		cat - all.osm > temp.osm
+		
 		# run conflate again, this time against the patched osm file
-		conflate -i "Depo_"$depo".geojson" -c "Depo_"$depo".json" \
-			-o "Depo_"$depo".osm" --osm temp.osm "Depo_"$depo".profile.py"
-		# todo: patch the resulting file
+		conflate -i "Depo_"$depo".geojson" -c "Depo_"$depo"2.json" \
+			-o "Depo_"$depo"2.osm" --osm temp.osm "Depo_"$depo".profile.py"
+
+		# patch the resulting file
+		# remove old_disused nodes again, this time from the resulting file 
+		# && remove new nodes, we are not inserting any - new nodes have negative ids
+		awk 'BEGIN {RS="node>"; ORS="node>\n" };!/disused.*disused/ && !/id="-/' "Depo_"$depo"2.osm" | 
+		tac | sed '1s/node>//' | tac | xmlstarlet fo > "Depo_"$depo".osm"
+		# remove the unpatched file
+		rm "Depo_"$depo"2.osm"
+		
+		# patch the resulting json file using gron
+		gron  "Depo_"$depo"2.json" | 
+		awk 'BEGIN {RS="Feature"; ORS="Feature"};!/disused.*disused/ && !/id = -/' | 
+		tac | sed '1s/Feature//' | tac | gron -u > "Depo_"$depo".json"
+		rm "Depo_"$depo"2.json"
 		echo
 	done
 
