@@ -123,22 +123,44 @@ curl https://overpass-api.de/api/interpreter?data=area%5B%22name%22%3D%22%C4%8Ce
 		cat - all.osm > temp.osm
 		
 		# run conflate again, this time against the patched osm file
-		conflate -i "Depo_"$depo".geojson" -c "Depo_"$depo"2.json" \
-			-o "Depo_"$depo"2.osm" --osm temp.osm "Depo_"$depo".profile.py"
+		conflate -i "Depo_"$depo".geojson" -c "Depo_"$depo"_2.json" \
+			-o "Depo_"$depo"_2.osm" --osm temp.osm "Depo_"$depo".profile.py"
 
 		# patch the resulting file
 		# remove old_disused nodes again, this time from the resulting file 
 		# && remove new nodes, we are not inserting any - new nodes have negative ids
-		awk 'BEGIN {RS="node>"; ORS="node>\n" };!/disused.*disused/ && !/id="-/' "Depo_"$depo"2.osm" | 
-		tac | sed '1s/node>//' | tac | xmlstarlet fo > "Depo_"$depo".osm"
-		# remove the unpatched file
-		rm "Depo_"$depo"2.osm"
-		
-		# patch the resulting json file using gron
-		gron  "Depo_"$depo"2.json" | 
-		awk 'BEGIN {RS="Feature"; ORS="Feature"};!/disused.*disused/ && !/id = -/' | 
-		tac | sed '1s/Feature//' | tac | gron -u > "Depo_"$depo".json"
-		rm "Depo_"$depo"2.json"
+		# count changed postboxes
+		results=$(awk ' BEGIN {RS="node>" }!/disused.*disused/ && !/id="-/ { a++ } END { print a }' Depo_"$depo".osm)
+		schr=$((results-1))
+		echo "vyfiltrováno ................" $schr "schránek"
+		if [[ $schr = 0 ]]
+		then
+			# no nodes returned
+			echo "Beze změn"
+			# clean up
+			rm "Depo_"$depo".csv"
+			rm "Depo_"$depo".geojson"
+			rm "Depo_"$depo".json"
+			rm "Depo_"$depo".osm"
+			rm "Depo_"$depo"_2.json"
+			rm "Depo_"$depo"_2.osm"
+			rm "Depo_"$depo"_qr.osm"
+			rm "Depo_"$depo".profile.py"
+		else
+			# run it again
+			awk '
+			BEGIN {RS="node>"; ORS="node>\n"; z = 1 }
+			!/disused.*disused/ && !/id="-/ ' "Depo_"$depo"_2.osm" | 
+			tac | sed '1s/node>//' | tac | xmlstarlet fo > "Depo_"$depo".osm"
+			# remove the unpatched file
+			rm "Depo_"$depo"_2.osm"
+			
+			# patch the resulting json file using gron, no new check needed
+			gron  "Depo_"$depo"_2.json" | 
+			awk 'BEGIN {RS="Feature"; ORS="Feature"};!/disused.*disused/ && !/id = -/' | 
+			tac | sed '1s/Feature//' | tac | gron -u > "Depo_"$depo".json"
+			rm "Depo_"$depo"_2.json"
+		fi
 		echo
 	done
 
