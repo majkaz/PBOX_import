@@ -5774,7 +5774,7 @@
       "properties": {
         "_note": "<br><b>Poznámka:</b> Petýrkova 1952/22, Praha 414 <br><b>Adresa:</b> Petýrkova 1952/22, Chodov, 14800, Praha ",
         "amenity": "post_box",
-        "collection_times": "Mo-Fr 8:00",
+        "collection_times": "Mo-Fr 08:00",
         "operator": "Česká pošta, s.p.",
         "ref": "10003:9"
       },

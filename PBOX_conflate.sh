@@ -53,6 +53,7 @@ curl https://overpass-api.de/api/interpreter?data=area%5B%22name%22%3D%22%C4%8Ce
 			echo "Zpracovává se "$depo
 			echo
 			./p.py $f geojson "Depo_"$depo
+			
 			prfname="Depo_"$depo".profile.py"
 			cp PBOX.profile $prfname
 			echo "# file $new; depo nr. $depo" >> $prfname
@@ -107,6 +108,8 @@ curl https://overpass-api.de/api/interpreter?data=area%5B%22name%22%3D%22%C4%8Ce
 			echo "}" >> $prfname
 		fi
 		echo
+		# change collection_times time format to hh:mm if needed
+		sed -i 's/\(collection_times.* \)\([0-9]:[0-9][0-9]\)/\10\2/g' "Depo_"$depo".geojson"
 		# run conflate
 		conflate -i "Depo_"$depo".geojson" -c "Depo_"$depo".json" \
 			-o "Depo_"$depo".osm" --osm "Depo_"$depo"_qr.osm" "Depo_"$depo".profile.py"
