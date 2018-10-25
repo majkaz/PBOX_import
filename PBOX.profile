@@ -6,8 +6,8 @@ duplicate_distance=0.1
 master_tags = ('collection_times', 'operator')
 transform = {
     'amenity': 'post_box',
-	'operator': 'Česká pošta, s.p.',
-	'_note': '-'
+    'operator': 'Česká pošta, s.p.',
+    '_note': '-'
 }
 
 # END master profile
