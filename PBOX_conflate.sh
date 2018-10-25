@@ -137,7 +137,8 @@ for f in Depo_?????.csv; do
 	# remove old_disused nodes again, this time from the resulting file
 	# && remove new nodes, we are not inserting any - new nodes have negative ids
 	# count changed postboxes
-	results=$(awk ' BEGIN {RS="node>"}!/disused.*disused/ && !/id="-/ { a++ } END { print a }' Depo_"$depo".osm)
+	awkvar='BEGIN {RS="node>"} !/disused/ && !/id=\"-/ { a++ } END { print a }'
+	results=$(awk -f <(echo $awkvar) "Depo_"$depo".osm")
 	schr=$((results - 1))
 	echo "vyfiltrováno ................" $schr "schránek"
 	if [[ $schr == 0 ]]; then
